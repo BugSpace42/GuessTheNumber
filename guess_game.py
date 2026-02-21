@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox, ttk
 import random
 
 class GuessGame:
@@ -154,6 +155,37 @@ class GuessGame:
         self.attempts_label.config(
             text=f"Осталось попыток: {self.attempts_left}"
         )
+
+    def show_win_message(self):
+        result = messagebox.askyesno(
+            "Победа!",
+            f"Поздравляю! Вы угадали число {self.secret_number} за {self.attempts_made} попыток!\n"
+            "Хотите сыграть еще?"
+        )
+        if result:
+            self.reset_to_menu()
+        else:
+            self.root.quit()
+
+    def show_lose_message(self):
+        result = messagebox.askyesno(
+            "Поражение",
+            f"Ваши попытки закончились. Загаданное число: {self.secret_number}\n"
+            "Хотите попробовать еще?"
+        )
+        if result:
+            self.reset_to_menu()
+        else:
+            self.root.quit()
+
+    def reset_to_menu(self):
+        self.game_frame.destroy()
+        self.difficulty_frame.pack()
+        self.start_button.pack()
+
+        self.secret_number = None
+        self.attempts_left = 0
+        self.attempts_made = 0
 
 
 if __name__ == "__main__":
