@@ -17,7 +17,38 @@ class GuessGame:
 
     def setup_ui(self):
         # Интерфейс
-        pass
+        self.title_label = tk.Label(
+            self.root,
+            text="Угадай число",
+            font=("Arial", 20, "bold")
+        )
+        self.title_label.pack(pady=10)
+
+        self.difficulty_frame = tk.Frame(self.root)
+        self.difficulty_frame.pack(pady=20)
+
+        tk.Label(self.difficulty_frame, text="Выберите сложность:").pack()
+
+        self.difficulty_var = tk.StringVar(value="medium")
+        difficulties = [("Легкий", "easy"), ("Средний", "medium"), ("Сложный", "hard")]
+
+        for text, value in difficulties:
+            tk.Radiobutton(
+                self.difficulty_frame,
+                text=text,
+                variable=self.difficulty_var,
+                value=value
+            ).pack()
+
+        self.start_button = tk.Button(
+            self.root,
+            text="Начать игру",
+            command=self.new_game,
+            bg="green",
+            fg="white",
+            font=("Arial", 12)
+        )
+        self.start_button.pack(pady=10)
 
     def new_game(self):
         # Новая игра
